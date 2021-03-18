@@ -1,15 +1,15 @@
 # A method to retrieve Storage device statistics
 #
-# Drive_Info method
+# drive_info method
 #
 # Michael Ashby
-# 3/2/2021
-
+# Start:    3/2/2021
+# Updated:  3/5/2021
 
 import psutil
 import math
 
-#Pulled this conversion formula from stackoverflow to convert disk_usage()'s output from bytes to a more coherent unit of measure.
+#Conversion formula to convert disk_usage()'s output from bytes to a more comprehensible unit of measure.
 def convert_size(size_bytes):
    if size_bytes == 0:
        return "0B"
@@ -19,16 +19,31 @@ def convert_size(size_bytes):
    s = round(size_bytes / p, 2)
    return "%s %s" % (s, size_name[i])
 
-#Set string to the drive you are analyzing. Need to add a for loop to check each available drive connected next time.
-driveName='D:'
+#Tuple of possible drive letters.
+driveName = ['A:', 'B:', 'C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:', 'K:', 'L:', 'M:','N:','O:','P:','Q:','R:','S:','T:','U:','V:','W:','X:','Y:','Z:']
 
-#Set tuple to hold data pulled when calling disk_usage 
-temp=psutil.disk_usage(driveName)
+print()
 
-#Set an array of Strings to the corresponding drive info printed
-driveUsageStrings = ["Total  : ", "Used   : ", "Free   : ", "% Used : "]
+#Loop through tuple of drive letters.
+for x in range(len(driveName)):
 
-#Loop through the tuple and print its corresponding string
-for x in range(len(temp)):
-  if x < 3 : print((driveUsageStrings[x]), convert_size(temp[x]))
-  else : print((driveUsageStrings[x]),(temp[x]))
+  #Try parsing driveUseageStr, catch an Exception when driveUsageStr is empty. driveUsageStr is empty when passing an unmapped drive letter(i.e, driveName[x]=='Z:') to psutil. 
+  try:
+    driveUsageStr=psutil.disk_usage(driveName[x])
+
+    #Set an array of Strings to the corresponding drive info printed. This gives us our left column.
+    Column1Tuple = [driveName[x], "Total  : ", "Used   : ", "Free   : ", "Usage  : "]
+    
+    #Loop through the tuple and print its corresponding string
+    for y in range(len(driveUsageStr)):
+      
+      #Print the correlating Drive Name
+      if y == 0 : print(Column1Tuple[y])
+           
+      #Print the left column titles, data, and its unit of measure.
+      if y < (3) :
+        print(Column1Tuple[y+1], convert_size(driveUsageStr[y]))
+      else :  print(Column1Tuple[y+1],driveUsageStr[y]," %")
+    else : print()
+  except FileNotFoundError:
+    continue
