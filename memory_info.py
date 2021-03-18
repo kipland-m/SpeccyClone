@@ -1,5 +1,6 @@
 # Kipland Melton
 import psutil
+import math
 
 def convert_size(size_bytes):
    if size_bytes == 0:
@@ -14,8 +15,16 @@ def RetrieveMemory():
 
     ram_info = psutil.virtual_memory()
 
-    for info in ram_info:
-        print(info)
+    # Main formatting data presentation loop
+
+    typePresented = ("Total :","Used :","Free :","Usage :")
+
+    for x in range(len(typePresented)):
+        for info in ram_info:
+            if info > 100:
+                print(typePresented[] convert_size(info))
+            else:
+                print(typePresented[3],convert_size(info))
 
 if __name__ == "__main__":
     RetrieveMemory()
