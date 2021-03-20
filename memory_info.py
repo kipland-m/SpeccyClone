@@ -17,14 +17,16 @@ def RetrieveMemory():
 
     # Main formatting data presentation loop
 
-    typePresented = ("Total :","Used :","Free :","Usage :")
+    typePresented = ("Total :","Used :","Free :")
 
-    for x in range(len(typePresented)):
-        for info in ram_info:
-            if info > 100:
-                print(typePresented[] convert_size(info))
-            else:
-                print(typePresented[3],convert_size(info))
+    counter = 0
+
+    for info in ram_info:
+        if info > 100:
+            print(typePresented[counter],convert_size(info))
+            counter += 1
+        else:
+            print("Usage :",info,"%")
 
 if __name__ == "__main__":
     RetrieveMemory()
