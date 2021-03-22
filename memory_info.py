@@ -13,20 +13,27 @@ def convert_size(size_bytes):
 
 def RetrieveMemory():
 
+    # Holds returned information from Psutil library involving memory
     ram_info = psutil.virtual_memory()
+    
+    typePresented = ("Total : ","Used  : ","Free : ", "Usage : ")
 
     # Main formatting data presentation loop
 
-    typePresented = ("Total :","Used :","Free :")
-
     counter = 0
 
+    print()
+
     for info in ram_info:
-        if info > 100:
-            print(typePresented[counter],convert_size(info))
+        try:
+            if info > 100:
+                print(typePresented[counter],convert_size(info))
+            else:
+                print(typePresented[3],convert_size(info))
             counter += 1
-        else:
-            print("Usage :",info,"%")
+        except:
+            continue
+
 
 if __name__ == "__main__":
     RetrieveMemory()
