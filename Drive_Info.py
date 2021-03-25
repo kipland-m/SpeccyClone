@@ -20,8 +20,8 @@ def convert_size(size_bytes):
    return "%s %s" % (s, size_name[i])
 
 #Tuple of possible drive letters.
-driveName = ['A:', 'B:', 'C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:', 'K:', 'L:', 'M:','N:','O:','P:','Q:','R:','S:','T:','U:','V:','W:','X:','Y:','Z:']
-
+driveName = ('A:', 'B:', 'C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:', 'K:', 'L:', 'M:','N:','O:','P:','Q:','R:','S:','T:','U:','V:','W:','X:','Y:','Z:')
+cd
 print()
 
 #Loop through tuple of drive letters.
@@ -32,7 +32,7 @@ for x in range(len(driveName)):
     driveUsageStr=psutil.disk_usage(driveName[x])
 
     #Set an array of Strings to the corresponding drive info printed. This gives us our left column.
-    Column1Tuple = [driveName[x], "Total  : ", "Used   : ", "Free   : ", "Usage  : "]
+    Column1Tuple = (driveName[x], "Total  : ", "Used   : ", "Free   : ", "Usage  : ")
     
     #Loop through the tuple and print its corresponding string
     for y in range(len(driveUsageStr)):
